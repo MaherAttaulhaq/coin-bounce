@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const dbConnect = require("./database/index");
 const { PORT } = require("./config/index");
 const router = require("./routes/index");
@@ -37,4 +38,9 @@ app.use("/storage", express.static("storage"));
 
 app.use(errorHandler);
 
-app.listen(PORT, console.log(`Backend is running on port: ${PORT}`));
+app.use(express.static(path.join(__dirname, "../frontend/build")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/build/index.html"));
+});
+
+app.listen(PORT, console.log(`Server running on port: ${PORT}`));

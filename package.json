@@ -1,0 +1,9 @@
+{
+  "name": "coin-bounce",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "cd frontend && npm run build",
+    "start": "cd backend && npm start",
+    "install:all": "cd frontend && npm install && cd ../backend && npm install"
+  }
+}
