@@ -57,7 +57,17 @@ export const submitBlog = async (data) => {
   let response;
 
   try {
-    response = await api.post("/blog", data);
+    const formData = new FormData();
+    formData.append("title", data.title);
+    formData.append("content", data.content);
+    formData.append("author", data.author);
+    formData.append("photo", data.photo);
+
+    response = await api.post("/blog", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
   } catch (error) {
     return error;
   }
@@ -116,7 +126,20 @@ export const deleteBlog = async (id) => {
 export const updateBlog = async (data) => {
   let response;
   try {
-    response = await api.put("/blog", data);
+    const formData = new FormData();
+    formData.append("title", data.title);
+    formData.append("content", data.content);
+    formData.append("author", data.author);
+    formData.append("blogId", data.blogId);
+    if (data.photo) {
+      formData.append("photo", data.photo);
+    }
+
+    response = await api.put("/blog", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
   } catch (error) {
     return error;
   }
